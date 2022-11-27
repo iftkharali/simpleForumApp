@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\UserLogs;
+use App\Http\Controllers\PostController;
+use GuzzleHttp\Middleware;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +19,13 @@ use App\Http\Middleware\UserLogs;
 Route::get('/', function () {
     return view('welcome');
 });
-Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('log.route');
-
 // Package route for showing logs on the view
 Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+
+Auth::routes();
+Route::group(['middleware'=>['auth']],function(){
+    Route::resource('posts', PostController::class);
+
+});
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('log.route');
+

@@ -1,0 +1,35 @@
+[33mcommit 20aa34cb0a9ac0f594c2080086f25be541f4764f[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Iftkhar Ali (Ramz) <iftkhargabol@gmail.com>
+Date:   Sat Nov 26 03:08:01 2022 +0500
+
+    adding package for showing laravel logs on a route - view
+
+[33mcommit 77bdac874fe46d9c7f8159d9bf26c2326f19e5f0[m
+Author: Iftkhar Ali (Ramz) <iftkhargabol@gmail.com>
+Date:   Sat Nov 26 03:01:55 2022 +0500
+
+    adding UserLogs middleware for showing the logs on a route or routes
+
+[33mcommit c6bf4265adfe404e1a34c1e4eef8e3dbdbc8369b[m
+Author: Iftkhar Ali (Ramz) <iftkhargabol@gmail.com>
+Date:   Sat Nov 26 01:56:34 2022 +0500
+
+    adding auth and observers usage
+
+[33mcommit 4799ae261e347463355643adc01dbb131368d3be[m
+Author: Iftkhar Ali (Ramz) <iftkhargabol@gmail.com>
+Date:   Fri Nov 25 04:15:28 2022 +0500
+
+    generating the fake data through seeders
+
+[33mcommit 1ef7de588ff651b38b4a403bef6d3f1ac7d59d4f[m
+Author: Iftkhar Ali (Ramz) <iftkhargabol@gmail.com>
+Date:   Fri Nov 25 03:04:05 2022 +0500
+
+    database migrations
+
+[33mcommit 9b24c415999c880deb7880e3441e2f79f9aa5d13[m
+Author: Iftkhar Ali (Ramz) <iftkhargabol@gmail.com>
+Date:   Fri Nov 25 02:13:40 2022 +0500
+
+    Installation

@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Interfaces\PostRepositoryInterface;
 
 class PostController extends Controller
 {
+    private PostRepositoryInterface $postRepository;
+
+    public function __construct(PostRepositoryInterface $postRepository) 
+    {
+        $this->postRepository = $postRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +23,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = $this->postRepository->getAll();
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -25,7 +34,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -36,7 +45,10 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        //
+        $request->request->add(['image'=>'random image url']);
+        $this->postRepository->create($request->except('_token'));
+        return  redirect()->route('posts.index')->with('msg' , 'Post has been added');
+
     }
 
     /**
@@ -47,7 +59,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        $post = $this->postRepository->getById($post->id);
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -58,7 +71,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit',  compact('post'));
     }
 
     /**
@@ -70,7 +83,8 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $this->postRepository->update($post->id, $request->except(['_token','_method']));
+        return  redirect()->route('posts.index')->with('msg' , 'Post has been updated');
     }
 
     /**
@@ -81,6 +95,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $this->postRepository->destroy($post->id);
+        return redirect()->route('posts.index')->with("msg","Post has been deleted");
+
     }
 }

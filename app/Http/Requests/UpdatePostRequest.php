@@ -13,7 +13,7 @@ class UpdatePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,22 @@ class UpdatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required',
+            'description' => 'required',
+        ];
+    }
+
+
+    /**
+     * Custom message for validation
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'title.required' => 'Post title can not be empty!',
+            'description.required' => 'Post description can not be empty!',
         ];
     }
 }

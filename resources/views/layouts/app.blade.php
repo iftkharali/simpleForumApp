@@ -39,6 +39,9 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('posts.index') }}"> All Posts</a>
+                        </li>
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
@@ -52,6 +55,10 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('posts.create') }}"> Add Post</a>
+                            </li>
+                            
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}

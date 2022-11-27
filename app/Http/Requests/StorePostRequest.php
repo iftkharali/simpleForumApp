@@ -13,7 +13,7 @@ class StorePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,22 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required',
+            'description' => 'required',
+        ];
+    }
+
+
+    /**
+     * Custom message for validation
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'title.required' => 'Post title is required!',
+            'description.required' => 'Post description is required!',
         ];
     }
 }
