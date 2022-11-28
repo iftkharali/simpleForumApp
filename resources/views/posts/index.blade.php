@@ -2,6 +2,9 @@
 @section('content')
 <div class="container">
     <div class="row d-flex">
+        <div class="mb-2" role="alert">
+           Total posts: {{ count($posts) }}
+        </div>
         @if (session('msg'))
         <div class="alert alert-success" role="alert">
             {{ session('msg') }}
