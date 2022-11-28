@@ -34,6 +34,7 @@ class PostController extends Controller
      */
     public function create()
     {
+        $this->authorize('create','App\Models\Post');
         return view('posts.create');
     }
 
@@ -45,6 +46,7 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
+        $this->authorize('store','App\Models\User');
         $request->request->add(['image'=>'random image url']);
         $this->postRepository->create($request->except('_token'));
         return  redirect()->route('posts.index')->with('msg' , 'Post has been added');
@@ -71,6 +73,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        $this->authorize('edit',$post);
         return view('posts.edit',  compact('post'));
     }
 
@@ -83,6 +86,7 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
+        $this->authorize('update',$post);
         $this->postRepository->update($post->id, $request->except(['_token','_method']));
         return  redirect()->route('posts.index')->with('msg' , 'Post has been updated');
     }
@@ -94,7 +98,10 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post)
-    {
+    {   
+        if(auth()->user()->is_admin) {
+            $this->authorize('delete', $post);
+        }
         $this->postRepository->destroy($post->id);
         return redirect()->route('posts.index')->with("msg","Post has been deleted");
 

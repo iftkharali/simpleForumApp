@@ -23,9 +23,7 @@ Route::get('/', function () {
 Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 
 Auth::routes();
-Route::group(['middleware'=>['auth']],function(){
-    Route::resource('posts', PostController::class);
+Route::resource('posts', PostController::class);
 
-});
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('log.route');
 
