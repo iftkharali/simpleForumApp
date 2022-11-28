@@ -13,7 +13,7 @@ class StoreCommentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,20 @@ class StoreCommentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'post_id' => 'required',
+            'comment' => 'required',
+        ];
+    }
+
+    /**
+     * Custom message for validation
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'comment.required' => 'You can not leave an empty comment!',
         ];
     }
 }

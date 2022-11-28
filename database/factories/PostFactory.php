@@ -16,8 +16,8 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => $this->faker->numberBetween($min = 0, $max = 10),
-            'title' => $this->faker->sentence($nbWords = 6, $variableNbWords = true), 
+            'user_id' => $this->faker->numberBetween($min = 1, $max = 10),
+            'title' => $this->faker->sentence($nbWords = 10, $variableNbWords = true), 
             'description' => $this->faker->paragraph($nbSentences = 10, $variableNbSentences = true),
             'image' => 'https://via.placeholder.com/400x400.png?text=No%20Image',
         ];

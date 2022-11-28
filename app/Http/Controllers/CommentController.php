@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use App\Interfaces\CommentRepositoryInterface;
 
 class CommentController extends Controller
 {
+    private CommentRepositoryInterface $commentRepository;
+
+    public function __construct(CommentRepositoryInterface $commentRepository) 
+    {
+        $this->commentRepository = $commentRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +23,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -36,7 +44,9 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        //
+      //  $this->authorize('store','App\Models\User');
+        $this->commentRepository->create($request->except('_token'));
+        return  redirect()->back()->with("msg", "comment has been posted");
     }
 
     /**
