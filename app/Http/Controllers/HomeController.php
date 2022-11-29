@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UpdateUser;
+use App\Jobs\Deleteuser;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        event(new UpdateUser('Event Trigger'));
+        // dispatch(new Deleteuser('asdasdd'));
+die;
         return view('home');
     }
 }

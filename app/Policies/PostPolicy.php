@@ -42,8 +42,20 @@ class PostPolicy
      */
     public function create(User $user)
     {
-        return $user;
+        return true;
     }
+
+        /**
+     * Determine whether the user can create models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function store(User $user)
+    {
+        return true;
+    }
+
 
     /**
      * Determine whether the user can update the model.

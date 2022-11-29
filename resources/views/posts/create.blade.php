@@ -8,7 +8,7 @@
                 <div class="card-header">Add </div>
 
                 <div class="card-body">
-                        <form action="{{route('posts.store')}}" method="POST">
+                        <form action="{{route('posts.store')}}" enctype="multipart/form-data" method="POST" >
                             @csrf
                             <div class="form-group">
                             <label for="title">Post title</label>
@@ -23,6 +23,15 @@
                                 <label for="description">Post description</label>
                                 <textarea id="description" class="form-control @error('description') is-invalid @enderror" name="description"  rows="6"> </textarea>
                                 @error('description')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="description">Post Image</label>
+                                <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror" > 
+                                @error('image')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>

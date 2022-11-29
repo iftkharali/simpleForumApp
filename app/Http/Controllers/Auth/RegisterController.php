@@ -8,6 +8,10 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+use App\Traits\SaveImage;
 
 class RegisterController extends Controller
 {
@@ -21,7 +25,7 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
+    use SaveImage;
     use RegistersUsers;
 
     /**
@@ -56,6 +60,30 @@ class RegisterController extends Controller
         ]);
     }
 
+        /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        
+        $input = $request->except('_token');
+        $input['image'] = $this->verifyAndUpload($request, 'users');
+        event(new Registered($user = $this->create($input)));
+        $this->guard()->login($user);
+
+        if ($response = $this->registered($request, $user)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+                    ? new JsonResponse([], 201)
+                    : redirect($this->redirectPath());
+    }
+
     /**
      * Create a new user instance after a valid registration.
      *
@@ -68,6 +96,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'image' => $data['image']
         ]);
     }
 }

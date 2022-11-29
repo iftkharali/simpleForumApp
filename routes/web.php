@@ -23,7 +23,7 @@ Route::get('/', function () {
 // Package route for showing logs on the view
 Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 Route::resource('posts', PostController::class);
 Route::resource('comments', CommentController::class);
 

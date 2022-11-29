@@ -6,9 +6,12 @@ use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Interfaces\PostRepositoryInterface;
+use App\Traits\SaveImage;
+
 
 class PostController extends Controller
 {
+    use SaveImage;
     private PostRepositoryInterface $postRepository;
 
     public function __construct(PostRepositoryInterface $postRepository) 
@@ -46,9 +49,11 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        $this->authorize('store','App\Models\User');
-        $request->request->add(['image'=>'random image url']);
-        $this->postRepository->create($request->except('_token'));
+
+        $this->authorize('store','App\Models\Post');
+        $input = $request->except('_token');
+        $input['image'] = $this->verifyAndUpload($request, 'posts');
+        $this->postRepository->create($input);
         return  redirect()->route('posts.index')->with('msg' , 'Post has been added');
 
     }

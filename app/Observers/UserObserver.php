@@ -15,7 +15,7 @@ class UserObserver
      */
     public function creating(User $user)
     {
-        $user->is_admin = true;
+        $user->is_admin = false;
     }
 
     /**
